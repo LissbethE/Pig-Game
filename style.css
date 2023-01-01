@@ -1,0 +1,485 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #333;
+
+  max-width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(to top, #8e3200 0%, #dc7b2a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+/*
+main {
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  background-image: linear-gradient(to right top, #8e3200, #dc7b2a);
+
+  background-image: linear-gradient(to right top, #fbc2eb 0%, #a6c1ee 100%);
+}*/
+
+main {
+  position: relative;
+  width: 85%;
+  height: 95%;
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(200px);
+  filter: blur();
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+  display: flex;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.player {
+  flex: 50%;
+  margin: 0rem;
+  padding: 1rem;
+  transition: all 0.75s;
+}
+
+/*? Text ----------------------------------------------------------------------- */
+
+.name {
+  text-align: center;
+  font-size: 5rem;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  word-spacing: 0.2rem;
+  margin: 0 0 -2rem 0;
+  color: #8e3200;
+}
+.score {
+  text-align: center;
+  font-size: 8rem;
+  font-weight: 300;
+  letter-spacing: 0.3rem;
+  color: #dc7b2a;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 20;
+}
+.current {
+  width: 20rem;
+  height: 10rem;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+
+  transition: all 0.75s;
+
+  position: absolute;
+  bottom: 5%;
+  left: 16%;
+  z-index: 4;
+}
+.current--player-two {
+  left: 66%; /* 68*/
+}
+.current-label {
+  font-size: 1.7rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #8e3200;
+}
+.current-score {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #dc7b2a;
+}
+
+/* btn and img */
+
+.dice.hidden {
+  display: none;
+}
+
+.dice {
+  height: 10rem;
+  display: block;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
+}
+
+.dice,
+.btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-family: inherit;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 10rem;
+
+  color: #8e3200;
+  background-color: #f9f9f9;
+  background-color: rgba(249, 249, 249, 0.8);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
+
+  transition: all 0.2s;
+}
+
+.dice {
+  top: 30%;
+}
+
+.btn--new {
+  top: 3rem;
+}
+.btn--roll {
+  top: 73%;
+}
+.btn--hold {
+  top: 83%;
+}
+
+.btn:active {
+  transform: translate(-50%, 0.1rem) scale(0.98);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+/*? Cup Of Coffee -------------------------------------------------------------- */
+
+/* Semilla De Cafe */
+
+.seed {
+  width: 6rem;
+  height: 7rem;
+  /*   width: 8rem;
+  height: 10rem;*/
+  border-radius: 50%;
+  background-color: #843c00;
+  position: absolute;
+  left: 25rem;
+  top: 33%;
+  z-index: 4;
+  overflow: hidden;
+
+  transition: all 0.5s ease-in;
+  opacity: 0;
+}
+.seed--player-two {
+  left: 83rem; /* 87 */
+}
+
+.seed::before {
+  content: ' ';
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  top: 0;
+  left: 0.8rem;
+  border-radius: 50%;
+  z-index: 2;
+  border-right: 1rem solid #44291a;
+}
+.seed::after {
+  content: ' ';
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  z-index: 2;
+  border-left: 1rem solid #44291a;
+}
+
+.seed.semillaActiva {
+  transform: translateY(210%);
+
+  animation-name: semilla;
+  animation-duration: 0.4s;
+  animation-timing-function: linear;
+}
+
+@keyframes semilla {
+  0% {
+    opacity: 0.1;
+  }
+
+  30% {
+    opacity: 0.5;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Taza De Cafe */
+.cup-container {
+  position: absolute;
+  left: 18%;
+  top: 50%;
+  z-index: 0;
+}
+.cup--player-two {
+  left: 68%; /* 71*/
+}
+
+.cup {
+  width: 14rem;
+  height: 15rem;
+  position: relative;
+  background-image: linear-gradient(to right, #f9f9f9, #d9d9d9);
+  border-radius: 0 0 45% 45%;
+}
+
+.top {
+  width: 100%;
+  height: 6rem;
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  border-radius: 50%;
+  background-image: linear-gradient(to right, #f9f9f9, #d9d9d9);
+}
+
+.circle {
+  width: calc(100% - 2rem);
+  height: 5rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  border-radius: 50%;
+  background-image: linear-gradient(to left, #f9f9f9, #d9d9d9);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.circle-vacio {
+  width: calc(100% - 2rem);
+  height: 16rem; /* 15rem*/
+  position: absolute;
+  top: 1.3rem;
+  left: 1rem;
+  bottom: 0;
+  background-image: linear-gradient(to left, #f9f9f9, #d9d9d9);
+  border-radius: 4rem 4rem 45% 45%;
+  overflow: hidden;
+}
+
+.coffee {
+  width: 100%;
+  height: 100%;
+  /*position: absolute;
+  top: 2rem;
+  left: 0;*/
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  border-radius: 50%;
+  background-image: linear-gradient(to top, #8e3200 0%, #dc7b2a 100%);
+}
+
+.active {
+  width: 100%;
+  height: 0%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0rem 0rem 45% 45%;
+  background-image: linear-gradient(to top, #8e3200 0%, #dc7b2a 100%);
+  transition: all 0.5s ease-in;
+  transition-delay: 0.6s;
+}
+
+.handle {
+  width: 8rem;
+  height: 9rem;
+  position: absolute;
+  right: -3.3rem;
+  top: 1rem;
+  border: 2rem solid #dcdcdc;
+  border-left: 2.5rem solid transparent;
+  border-bottom: 2.5rem solid transparent;
+  border-radius: 50%;
+  transform: rotate(42deg);
+}
+
+.plate {
+  width: 25rem;
+  height: 10rem;
+  position: absolute;
+  bottom: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%); /* (-52%, -22%) */
+  background-image: linear-gradient(to right, #f9f9f9, #e7e7e7);
+  border-radius: 50%;
+  box-shadow: 0 3.5rem 3.5rem rgba(0, 0, 0, 0.2);
+}
+
+.plate::before {
+  content: ' ';
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  border-radius: 50%;
+  background-image: linear-gradient(to left, #f9f9f9, #e7e7e7);
+}
+.plate::after {
+  content: ' ';
+  position: absolute;
+  top: 0.1rem;
+  left: 3rem;
+  right: 3rem;
+  bottom: 0.1rem;
+  border-radius: 50%;
+  background-image: radial-gradient(
+    rgba(0, 0, 0, 0.2) 25%,
+    transparent,
+    transparent
+  );
+}
+
+.vapour {
+  position: relative;
+  display: flex;
+  z-index: 1;
+  padding: 0 2rem;
+}
+.vapour span {
+  min-width: 0.8rem;
+  height: 12rem;
+  position: relative;
+  bottom: 5rem;
+  left: -1rem;
+  display: block;
+  margin: 0 0.2rem 5rem;
+  background-color: #fff;
+  border-radius: 50%;
+
+  animation: animate 5s linear infinite;
+  animation-delay: calc(var(--i) * -0.5s);
+  opacity: 0;
+  filter: blur(0.8rem);
+}
+@keyframes animate {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-7.5rem) scaleX(5);
+  }
+
+  95% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(-15rem) scaleX(10); /* -15 -16 */
+  }
+}
+
+/* javascript ------------------------------------------------------------------- */
+
+.player--active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.player--active .name {
+  font-weight: 700;
+}
+.player--active .score {
+  font-weight: 400;
+}
+
+.player--active .current {
+  opacity: 1;
+}
+
+.player--winner {
+  background-color: #361500;
+}
+
+.player--winner .name {
+  font-weight: 700;
+  color: #cc9544;
+}
+.player--winner .score {
+  color: #cc9544;
+}
+.player--winner .current {
+  background-color: #cc9544;
+}
+.player--winner .current-label,
+.player--winner .current-score {
+  color: #361500;
+}
+
+.cup p {
+  display: none;
+}
+
+.player--winner .cup p {
+  display: block;
+  height: 7rem;
+  font-size: 6.5rem;
+  position: absolute;
+  left: 50%;
+  top: 85%; /* 120*/
+  transform: translateX(-50%);
+}
+
+.player--winner .cup--player-two .cup p {
+  left: 50%;
+  top: 15%; /* 120*/
+  transform: translateX(-50%);
+}
+
+.hidden {
+  opacity: 0;
+  transition: all 0.4s ease-in;
+}
